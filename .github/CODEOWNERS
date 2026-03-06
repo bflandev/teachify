@@ -1,0 +1,14 @@
+# CODEOWNERS
+#
+# This file defines the individuals or teams responsible for reviewing and
+# approving changes to all files in this repository. GitHub automatically
+# requests a review from the listed owners when a pull request modifies
+# any file matching the pattern.
+#
+# Syntax: <pattern> <owner> [<owner> ...]
+# A pattern of '*' matches all files in the repository.
+#
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owner — all files require review from @bflandev
+* @bflandev
