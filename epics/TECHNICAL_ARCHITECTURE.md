@@ -12,32 +12,27 @@ This document outlines the recommended technical architecture for the Learn Wren
 
 ```mermaid
 graph TD
-    subgraph "User Layer"
-        A[Web Browser] --> B{Load Balancer / Reverse Proxy};
+    subgraph "Firebase Platform"
+        A[Web Browser] --> B[Firebase Hosting];
+        B --> C[Angular Frontend];
+        C --> D[NestJS Backend (Cloud Functions)];
     end
 
-    subgraph "Application Layer"
-        B --> C[Frontend (React/Vue)];
-        B --> D[Backend API (Node.js/Python)];
+    subgraph "Firebase Services"
+        D --> E[Firestore Database];
+        D --> F[Cloud Storage for Firebase];
+        D --> G[Firebase Authentication];
     end
 
-    subgraph "Data Layer"
-        D --> E[PostgreSQL Database];
-        D --> F[Redis Cache];
-        D --> G[Object Storage (MinIO)];
-    end
-
-    subgraph "Video Pipeline"
-        D --> H[Transcoding Worker];
-        H --> G;
-        H --> I[DRM Service];
-        I --> J[DRM Key Store];
+    subgraph "Video Pipeline (3rd Party)"
+        D --> H[Transcoding & DRM Service (e.g., Coconut/Mux)];
+        H --> F;
     end
 
     subgraph "DRM & Playback"
-        C --> K[Video Player (Shaka/Video.js)];
-        K --> G;
-        K --> I;
+        C --> I[Video Player (Shaka/Video.js)];
+        I --> F;
+        I --> H;
     end
 ```
 
@@ -47,18 +42,15 @@ graph TD
 
 | Layer | Component | Recommended Technology | Rationale |
 | :--- | :--- | :--- | :--- |
-| **Frontend** | Web Application | React or Vue.js | Mature ecosystems, component-based architecture, strong community support. |
-| **Backend** | API Server | Node.js (Express/Fastify) or Python (Django/FastAPI) | Both are well-suited for building RESTful or GraphQL APIs with strong LMS ecosystem support. |
-| **Database** | Relational Data | PostgreSQL | Robust, open-source RDBMS with excellent support for complex queries and JSONB for flexible data. |
-| **Cache** | Session and Metadata | Redis | In-memory data store for session tokens, rate limiting, and caching course metadata. |
-| **Object Storage** | Video and File Storage | MinIO | Self-hosted, S3-compatible object storage ideal for large video files. |
-| **Video Transcoding** | Pipeline | FFmpeg + Worker Queue (BullMQ/Celery) | FFmpeg is the industry-standard open-source transcoding tool; a message queue manages asynchronous jobs. |
-| **Video Packaging** | HLS/DASH Packaging | Shaka Packager | Open-source tool from Google for packaging video into HLS and DASH with CENC encryption. |
-| **DRM** | License Server | Widevine (Google), PlayReady (Microsoft), FairPlay (Apple) via a commercial DRM provider or a self-hosted solution | Multi-DRM ensures compatibility across all major browsers and devices. |
-| **Video Player** | Web Player | Shaka Player or Video.js with DRM plugins | Both are open-source, support HLS/DASH, and integrate with Widevine, PlayReady, and FairPlay. |
-| **Authentication** | Identity Provider | Keycloak (self-hosted) or custom JWT implementation | Keycloak provides enterprise-grade SSO, OAuth2, and OIDC support out of the box. |
-| **Deployment** | Containerisation | Docker + Docker Compose | Simplifies self-hosted deployment and ensures environment consistency. |
-| **CDN / Reverse Proxy** | Content Delivery | Nginx + optional CDN (e.g., a commercial CDN provider) | Nginx serves as a reverse proxy and can deliver HLS segments; a CDN reduces latency for geographically distributed users. |
+| **Workspace** | Monorepo Tooling | Nx (Nrwl) | Manages the monorepo, providing smart builds, caching, and code generation for both Angular and NestJS. |
+| **Frontend** | Web Application | Angular | A comprehensive and opinionated framework that integrates well with NestJS and Nx for a consistent development experience. |
+| **Backend** | API Server | NestJS | A progressive Node.js framework that uses TypeScript and is heavily inspired by Angular, ensuring architectural consistency. |
+| **Database** | NoSQL Document Store | Firestore (via Firebase) | A flexible, scalable NoSQL database that integrates seamlessly with Firebase Authentication and Cloud Functions. |
+| **Hosting & CDN** | Static & API Hosting | Firebase Hosting & Cloud Functions | Provides a serverless environment for hosting the Angular frontend and NestJS backend, with a built-in global CDN. |
+| **Authentication** | Identity Provider | Firebase Authentication | Manages user sign-up, sign-in, and security rules, integrating directly with Firestore. |
+| **File Storage** | Video & Lesson Materials | Cloud Storage for Firebase | Securely stores and delivers user-uploaded content like videos and PDFs, governed by Firebase security rules. |
+| **Video Pipeline** | Transcoding & DRM | Third-Party (e.g., Coconut, Mux) | Offloads the complex and resource-intensive tasks of video transcoding and multi-DRM packaging to a specialized service. |
+| **Video Player** | Web Player | Shaka Player or Video.js with DRM plugins | Both are open-source, support HLS/DASH, and can integrate with the chosen third-party DRM service. |
 
 ---
 
