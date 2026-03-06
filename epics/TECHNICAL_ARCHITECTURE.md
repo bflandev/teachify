@@ -54,11 +54,11 @@ graph TD
 | **Object Storage** | Video and File Storage | MinIO | Self-hosted, S3-compatible object storage ideal for large video files. |
 | **Video Transcoding** | Pipeline | FFmpeg + Worker Queue (BullMQ/Celery) | FFmpeg is the industry-standard open-source transcoding tool; a message queue manages asynchronous jobs. |
 | **Video Packaging** | HLS/DASH Packaging | Shaka Packager | Open-source tool from Google for packaging video into HLS and DASH with CENC encryption. |
-| **DRM** | License Server | Widevine (Google), PlayReady (Microsoft), FairPlay (Apple) via EZDRM or a self-hosted solution | Multi-DRM ensures compatibility across all major browsers and devices. |
+| **DRM** | License Server | Widevine (Google), PlayReady (Microsoft), FairPlay (Apple) via a commercial DRM provider or a self-hosted solution | Multi-DRM ensures compatibility across all major browsers and devices. |
 | **Video Player** | Web Player | Shaka Player or Video.js with DRM plugins | Both are open-source, support HLS/DASH, and integrate with Widevine, PlayReady, and FairPlay. |
 | **Authentication** | Identity Provider | Keycloak (self-hosted) or custom JWT implementation | Keycloak provides enterprise-grade SSO, OAuth2, and OIDC support out of the box. |
 | **Deployment** | Containerisation | Docker + Docker Compose | Simplifies self-hosted deployment and ensures environment consistency. |
-| **CDN / Reverse Proxy** | Content Delivery | Nginx + optional CDN (e.g., Bunny.net) | Nginx serves as a reverse proxy and can deliver HLS segments; a CDN reduces latency for geographically distributed users. |
+| **CDN / Reverse Proxy** | Content Delivery | Nginx + optional CDN (e.g., a commercial CDN provider) | Nginx serves as a reverse proxy and can deliver HLS segments; a CDN reduces latency for geographically distributed users. |
 
 ---
 
