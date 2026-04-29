@@ -15,7 +15,7 @@
     "lint": "nx run-many -t lint",
     "e2e": "nx run-many -t e2e",
     "typecheck": "nx run-many -t typecheck",
-    "affected": "nx affected -t lint test build"
+    "affected": "nx affected -t lint test build typecheck"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

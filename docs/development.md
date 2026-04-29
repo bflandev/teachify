@@ -27,7 +27,7 @@ All scripts run from the repo root.
 | `pnpm lint` | Run ESLint across all projects. |
 | `pnpm e2e` | Run all Playwright E2E suites. |
 | `pnpm typecheck` | Run `tsc --noEmit` for all projects. |
-| `pnpm affected` | Run lint + test + build only for projects affected by the current branch's changes. |
+| `pnpm affected` | Run lint + test + build + typecheck only for projects affected by the current branch's changes. |
 
 ## Ports
 
