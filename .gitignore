@@ -1,0 +1,14 @@
+
+# Nx cache and installation — do not commit
+.nx/
+.claude/worktrees
+.claude/settings.local.json
+
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
