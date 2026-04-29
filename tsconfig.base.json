@@ -16,7 +16,11 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@learnwren/shared-data-models": [
+        "./libs/shared-data-models/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
