@@ -18,6 +18,8 @@ describe('AppController', () => {
       expect(result.status).toBe('ok');
       expect(typeof result.version).toBe('string');
       expect(result.version.length).toBeGreaterThan(0);
+      expect(typeof result.serverTime).toBe('string');
+      expect(() => new Date(result.serverTime).toISOString()).not.toThrow();
     });
   });
 });

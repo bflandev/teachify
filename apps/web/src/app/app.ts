@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import type { Course } from '@learnwren/shared-data-models';
 
 @Component({
   imports: [],
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {}
+export class App {
+  readonly featuredCourses: readonly Course[] = [];
+}
