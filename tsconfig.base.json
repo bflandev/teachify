@@ -20,7 +20,9 @@
       "@learnwren/shared-data-models": [
         "./libs/shared-data-models/src/index.ts"
       ],
-      "@learnwren/api-firebase": ["./libs/api-firebase/src/index.ts"]
+      "@learnwren/api-firebase": [
+        "./libs/api-firebase/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
